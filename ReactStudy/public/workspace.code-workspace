@@ -1,0 +1,17 @@
+{
+  "folders": [
+	{
+		"name": "ReactStudy",
+		"path": "../../Desktop/ReactStudy"
+	},
+	{
+		"name": "src",
+		"path": "../src"
+	},
+	{
+		"name": "public",
+		"path": "."
+	}
+],
+  "settings": {}
+}
