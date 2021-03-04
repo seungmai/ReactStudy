@@ -15,7 +15,7 @@ class Habit extends Component {
 // } // handleDecrement는 이 멤버변수는 arrow function을 가리킨다.
 
 handleIncrement = () => {
-    this.props.onIncrement(this.props.habit);
+    this.props.onIncrement(this.props.habit); 
 }
 
 handleDecrement = () => {

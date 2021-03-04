@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class HabitAddForm extends Component {
     formRef = React.createRef();
     inputRef = React.createRef();
-
+ 
     onSubmit = event => {
         event.preventDefault();
         const name = this.inputRef.current.value;

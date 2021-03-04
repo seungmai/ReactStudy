@@ -33,13 +33,21 @@ class App extends Component {
 
   handleDelete = habit => { // 삭제하는 로직(어떤 습관을 삭제할 건지 habit을 받아와야한다.)
     const habits = this.state.habits.filter(item => item.id !== habit.id); // 새로운 로컬변수인 habits을 만들어서 this.state에 있는 habits을 빙글빙글 돌면서 아이템을 전달받아서 배열에 있는 아이템의 아이디가 우리가 삭제하고자 하는 함수인자로 전달받은 habit의 id가 동일하지 않는 아이들만 쏙쏙 뽑아다가 배열을 만들 것이다.
-    this.setState({ habits }); 
+    this.setState({ habits }); // 전체적으로 업데이트
   };
 
   handleAdd = name => {
-    const habits = [...this.state.habits, { id: Date.now(), name, count: 0 }];
+    const habits = [...this.state.habits, { id: Date.now(), name, count: 0 }]; // 기존에 있는 state에 있는 habit을 하나하나씩 이것을 ...을 spread operator이라고 부르는데 이렇게하게되면 habits에 있는 아이템들을 하나하나씩 새로운 배열에 복사해오는 것이다. 그리고 주어진 이름을 이용해서 새로운 habit도 만들어야 한다. 그래서 아이디는 고유한 아이들을 써야 되는데 기존에 있는 아이디 값은 1, 2, 3이라고 정했지만 이제 새로 만드는 것은 고유한 아이디를 해야 되기때문에 일단 간단하게 우리가 지금 Date.now()을 이용하면 현재 날짜와 시간을 합해서 초까지 만들어 주는 것이다. 이것으로 고유한 아이들을 만들고 이름은 주어진 이름을 이용하고 count:0 그리고 동일한 이름일 때는 생략이 가능하다.
     this.setState({ habits }); 
   }
+
+  handleReset = () => {
+    const habits = this.state.habits.map(habit => {
+      habit.count = 0;
+      return habit;
+    })
+    this.setState({ habits });
+  };
 
   render() {
     return (
@@ -51,6 +59,7 @@ class App extends Component {
         onDecrement={this.handleDecrement} 
         onDelete={this. handleDelete} 
         onAdd={this.handleAdd}
+        onReset={this.handleReset}
       />
      </>
     );
