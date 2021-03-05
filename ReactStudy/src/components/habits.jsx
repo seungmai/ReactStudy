@@ -28,6 +28,8 @@ class Habits extends Component { // Habits이라는 컴포넌트를 만듬!
                         <Habit 
                         key={habit.id} // 기본적인 props key라는 것이 있다. 키 안에 habit안에있는 id를 지정해 주면된다.
                         habit={habit}
+                        name={habit.name}
+                        count={habit.count}
                         onIncrement={this.props.onIncrement} // 내가 전달해준 handleIncrement를 호출
                         onDecrement={this.props.onDecrement} // 내가 전달해준 handleIncrement를 호출
                         onDelete={this.props.onDelete} // 내가 전달해준 handleIncrement를 호출

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
-class Habit extends Component {
+class Habit extends PureComponent {
     // state = { // Habit이라는 class안에는 state라는 멤버변수가 있는데 그 변수는 오브젝트이다.
     //     count: 0, // 그 오브젝트 안에는 count라는 데이터가 있다.
     // }; 우리가 부모 컴포넌트로부터 전달받은 props으로 전달받은 습관의 데이터를 보여주기만 하는 컴포넌트이기 때문에 이 컴포넌트 안에 자체적으로 state를 가지고 있을 필요는 전혀 없다.
@@ -27,8 +27,9 @@ handleDelete = () => {
 }
 
   render() {
-      const { name, count } = this.props.habit;
-    return (
+      const { name } = this.props.habit;
+      const { count } = this.props;
+     return (
       <li className="habit">
         <span className="habit-name">{name}</span>
         <span className="habit-count">{count}</span>

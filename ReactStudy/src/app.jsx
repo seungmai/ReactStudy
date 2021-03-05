@@ -16,19 +16,40 @@ class App extends Component {
     ],
   };
 
+  // handleIncrement = habit => { // 증가하는 로직(어떤 습관을 증가할 건지 habit을 받아와야한다.)
+  //   const habits = [...this.state.habits]; // habits라는 배열 안에 있는 아이템들을 하나하나씩 새로운 배열 안으로 복사해 오는 것을 말한다.
+  //   const index = habits.indexOf(habit); // habits의 몇 번째 인덱스에 있는지 찾을 수 있는 indexOf라는 배열의 API를 이용해서 몇번 째 인덱스에 있는지 확인을 한다.
+  //   habits[index].count++; // habits의 배열에 해당하는 이 오브젝트에 있는 count를 증가해준다.
+  //   this.setState({ habits: habits }); // 리액트에서 제공하는 setState API를 호출하고 동일하게 새로운 오브젝트를 만든다. key는 habits, 실제로 들어가는 배열은 위에서 만든 로컬변수인 habits이다. key와 value가 동일한 이름을 가지고 있는 경우에는 하나로 생략이 가능하다(habits: habits <= 이건 생략안함!)
+  // };
+
   handleIncrement = habit => { // 증가하는 로직(어떤 습관을 증가할 건지 habit을 받아와야한다.)
-    const habits = [...this.state.habits]; // habits라는 배열 안에 있는 아이템들을 하나하나씩 새로운 배열 안으로 복사해 오는 것을 말한다.
-    const index = habits.indexOf(habit); // habits의 몇 번째 인덱스에 있는지 찾을 수 있는 indexOf라는 배열의 API를 이용해서 몇번 째 인덱스에 있는지 확인을 한다.
-    habits[index].count++; // habits의 배열에 해당하는 이 오브젝트에 있는 count를 증가해준다.
+    const habits = this.state.habits.map(item => {
+      if(item.id === habit.id) {
+        return { ...habit, count: habit.count + 1 };
+      }
+      return item;
+    })
     this.setState({ habits: habits }); // 리액트에서 제공하는 setState API를 호출하고 동일하게 새로운 오브젝트를 만든다. key는 habits, 실제로 들어가는 배열은 위에서 만든 로컬변수인 habits이다. key와 value가 동일한 이름을 가지고 있는 경우에는 하나로 생략이 가능하다(habits: habits <= 이건 생략안함!)
   };
 
+  // handleDecrement = habit => { // 감소하는 로직(어떤 습관을 감소할 건지 habit을 받아와야한다.)
+  //   const habits = [...this.state.habits];
+  //   const index = habits.indexOf(habit);
+  //   const count = habits[index].count - 1;
+  //   habits[index].count = count < 0 ? 0 : count;
+  //   this.setState({ habits });
+  // };
+
   handleDecrement = habit => { // 감소하는 로직(어떤 습관을 감소할 건지 habit을 받아와야한다.)
-    const habits = [...this.state.habits];
-    const index = habits.indexOf(habit);
-    const count = habits[index].count - 1;
-    habits[index].count = count < 0 ? 0 : count;
-    this.setState({ habits });
+    const habits = this.state.habits.map(item => {
+      if(item.id === habit.id) {
+        const count = habit.count - 1;
+        return { ...habit, count: count < 0? 0 : count };
+      }
+      return item;
+    })
+    this.setState({ habits: habits }); // 리액트에서 제공하는 setState API를 호출하고 동일하게 새로운 오브젝트를 만든다. key는 habits, 실제로 들어가는 배열은 위에서 만든 로컬변수인 habits이다. key와 value가 동일한 이름을 가지고 있는 경우에는 하나로 생략이 가능하다(habits: habits <= 이건 생략안함!)
   };
 
   handleDelete = habit => { // 삭제하는 로직(어떤 습관을 삭제할 건지 habit을 받아와야한다.)
@@ -43,9 +64,11 @@ class App extends Component {
 
   handleReset = () => {
     const habits = this.state.habits.map(habit => {
-      habit.count = 0;
-      return habit;
-    })
+     if(habit.count !== 0 ) {
+      return { ...habit, count: 0 };
+     }
+     return habit;
+    });
     this.setState({ habits });
   };
 
